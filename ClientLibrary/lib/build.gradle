@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+    }
+
+    // HttpClient is not supported in Android SDK 23
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile('org.apache.httpcomponents:httpmime:4.3') {
+        exclude module: "httpclient"
+    }
+}
