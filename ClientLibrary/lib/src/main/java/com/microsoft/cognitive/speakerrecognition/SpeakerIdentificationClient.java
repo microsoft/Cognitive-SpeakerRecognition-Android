@@ -67,6 +67,18 @@ public interface SpeakerIdentificationClient {
     OperationLocation identify(InputStream audioStream, List<UUID> ids) throws IdentificationException, IOException;
 
     /**
+     * Identifies a given speaker using the speaker ID and audio stream
+     *
+     * @param audioStream The audio stream to identify
+     * @param ids The list of possible speaker profile IDs to identify from
+     * @param forceShortAudio Instruct the service to waive the recommended minimum audio limit needed for identification
+     * @return An object encapsulating the Url that can be used to query the identification operation status
+     * @throws IdentificationException Thrown in case of an internal server error, invalid IDs or a wrong audio format
+     * @throws IOException Signals an I/O issue while reading the audio stream, a connection abortion, or an invalid response content
+     */
+    OperationLocation identify(InputStream audioStream, List<UUID> ids, boolean forceShortAudio) throws IdentificationException, IOException;
+
+    /**
      * Creates a new speaker profile
      *
      * @param locale The speaker profile locale
@@ -114,6 +126,18 @@ public interface SpeakerIdentificationClient {
      * @throws IOException Signals an I/O issue while reading the audio stream, a connection abortion, or an invalid response content
      */
     OperationLocation enroll(InputStream audioStream, UUID id) throws EnrollmentException, IOException;
+
+    /**
+     * Enrolls a speaker profile from an audio stream
+     *
+     * @param audioStream The audio stream to use for enrollment
+     * @param id The speaker profile ID to enroll
+     * @param forceShortAudio Instruct the service to waive the recommended minimum audio limit needed for enrollment
+     * @return An object encapsulating the Url that can be used to query the enrollment operation status
+     * @throws EnrollmentException Thrown in case of an invalid audio format, internal server error or an invalid ID
+     * @throws IOException Signals an I/O issue while reading the audio stream, a connection abortion, or an invalid response content
+     */
+    OperationLocation enroll(InputStream audioStream, UUID id, boolean forceShortAudio) throws EnrollmentException, IOException;
 
     /**
      * Gets the enrollment operation status or result

@@ -103,6 +103,11 @@ public class SpeakerIdentificationRestClient implements SpeakerIdentificationCli
     private static final String LOCALE_PARAM = "locale";
 
     /**
+     * The short audio parameter name
+     */
+    private static final String SHORT_AUDIO_PARAM = "shortAudio";
+
+    /**
      * Speaker client clientHelper
      */
     private SpeakerRestClientHelper clientHelper;
@@ -255,7 +260,23 @@ public class SpeakerIdentificationRestClient implements SpeakerIdentificationCli
     @Override
     public OperationLocation enroll(InputStream audioStream, UUID id) throws EnrollmentException, IOException {
 
-        String requestUrl = IDENTIFICATION_PROFILE_URI + "/" + id.toString() + "/enroll";
+        return enroll(audioStream, id, false);
+    }
+
+    /**
+     * Enrolls a speaker profile from an audio stream
+     *
+     * @param audioStream The audio stream to use for enrollment
+     * @param id The speaker profile ID to enroll
+     * @param forceShortAudio Instruct the service to waive the recommended minimum audio limit needed for enrollment
+     * @return An object encapsulating the Url that can be used to query the enrollment operation status
+     * @throws EnrollmentException Thrown in case of an invalid audio format, internal server error or an invalid ID
+     * @throws IOException Signals an I/O issue while reading the audio stream, a connection abortion, or an invalid response content
+     */
+    @Override
+    public OperationLocation enroll(InputStream audioStream, UUID id, boolean forceShortAudio) throws EnrollmentException, IOException {
+
+        String requestUrl = IDENTIFICATION_PROFILE_URI + "/" + id.toString() + "/enroll?" + SHORT_AUDIO_PARAM + "=" + forceShortAudio;
         HttpPost request = (HttpPost) clientHelper.createHttpRequest(requestUrl, RequestType.POST);
 
         String fileName = id.toString() + "_" + new Date();
@@ -386,8 +407,24 @@ public class SpeakerIdentificationRestClient implements SpeakerIdentificationCli
     @Override
     public OperationLocation identify(InputStream audioStream, List<UUID> ids) throws IdentificationException, IOException {
 
+        return identify(audioStream, ids, false);
+    }
+
+    /**
+     * Identifies a given speaker using the speaker ID and audio stream
+     *
+     * @param audioStream The audio stream to identify
+     * @param ids The list of possible speaker profile IDs to identify from
+     * @param forceShortAudio Instruct the service to waive the recommended minimum audio limit needed for identification
+     * @return An object encapsulating the Url that can be used to query the identification operation status
+     * @throws IdentificationException Thrown in case of an internal server error, invalid IDs or a wrong audio format
+     * @throws IOException Signals an I/O issue while reading the audio stream, a connection abortion, or an invalid response content
+     */
+    @Override
+    public OperationLocation identify(InputStream audioStream, List<UUID> ids, boolean forceShortAudio) throws IdentificationException, IOException {
+
         String testProfileIds = clientHelper.buildProfileIdsString(ids);
-        String requestUrl = IDENTIFICATION_URI + "?identificationProfileIds=" + testProfileIds.toString();
+        String requestUrl = IDENTIFICATION_URI + "?identificationProfileIds=" + testProfileIds.toString() + "&" + SHORT_AUDIO_PARAM + "=" + forceShortAudio;
         HttpPost request = (HttpPost) clientHelper.createHttpRequest(requestUrl, RequestType.POST);
 
         String fileName = "identificationsIds" + "_" + new Date();
