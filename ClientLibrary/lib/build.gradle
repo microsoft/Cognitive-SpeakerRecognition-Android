@@ -78,9 +78,9 @@ uploadArchives {
 
                 developers {
                     developer {
-                        id 'projectoxfordSDK'
-                        name 'Project Oxford Client SDK'
-                        email 'projectoxfordsdk@microsoft.com'
+                        id 'cognitiveservicesSDK'
+                        name 'Cognitive Services Client SDK'
+                        email 'cognitiveSDKs@microsoft.com'
                     }
                 }
             }
