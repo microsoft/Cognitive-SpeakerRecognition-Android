@@ -78,17 +78,17 @@ public class SpeakerVerificationRestClient implements SpeakerVerificationClient 
     /**
      * Address of the verification profiles API
      */
-    private static final String BASE_URI = "https://api.projectoxford.ai/spid/v1.0/verificationProfiles";
+    private static final String BASE_URI = "https://westus.api.cognitive.microsoft.com/spid/v1.0/verificationProfiles";
 
     /**
      * Address of the verification API
      */
-    private static final String VERIFY_ENDPOINT = "https://api.projectoxford.ai/spid/v1.0/verify";
+    private static final String VERIFY_ENDPOINT = "https://westus.api.cognitive.microsoft.com/spid/v1.0/verify";
 
     /**
      * Address of the verification phrases API
      */
-    private static final String PHRASES_ENDPOINT = "https://api.projectoxford.ai/spid/v1.0/verificationPhrases?locale=";
+    private static final String PHRASES_ENDPOINT = "https://westus.api.cognitive.microsoft.com/spid/v1.0/verificationPhrases?locale=";
     
     /**
      * The locale parameter

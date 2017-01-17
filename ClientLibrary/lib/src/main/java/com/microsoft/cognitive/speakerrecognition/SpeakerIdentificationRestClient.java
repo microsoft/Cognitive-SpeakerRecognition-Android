@@ -80,12 +80,12 @@ public class SpeakerIdentificationRestClient implements SpeakerIdentificationCli
     /**
      * Address of the identification profiles API
      */
-    private static final String IDENTIFICATION_PROFILE_URI = "https://api.projectoxford.ai/spid/v1.0/identificationProfiles";
+    private static final String IDENTIFICATION_PROFILE_URI = "https://westus.api.cognitive.microsoft.com/spid/v1.0/identificationProfiles";
 
     /**
      * Address of the identification API
      */
-    private static final String IDENTIFICATION_URI = "https://api.projectoxford.ai/spid/v1.0/identify";
+    private static final String IDENTIFICATION_URI = "https://westus.api.cognitive.microsoft.com/spid/v1.0/identify";
 
     /**
      * The operation location header field
